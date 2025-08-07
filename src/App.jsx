@@ -2,7 +2,9 @@ function App() {
 
   return (
     <>
-      <h1>Funciona</h1>
+      <div className="bg-green-600 text-white p-4 rounded">
+  Tailwind v3 funcionando 💚
+</div>
     </>
   )
 }
