@@ -1,12 +1,13 @@
-function App() {
+import Header from "./components/Header";
+import RoutesIndex from "./routes/RoutesIndex";
 
+function App() {
   return (
     <>
-      <div className="bg-green-600 text-white p-4 rounded">
-  Tailwind v3 funcionando 💚
-</div>
+      <Header />
+      <RoutesIndex />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
