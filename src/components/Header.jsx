@@ -37,7 +37,7 @@ const Header = () => {
           <li className="header__list-item">
             <NavLink
               className={({ isActive }) => linkIsActive(isActive)}
-              to="/Secret"
+              to="/secret"
             >
               Secret
             </NavLink>
