@@ -1,6 +1,5 @@
 // creamos un axiosConfig para podernos comunicar con nuestro
 // servidor backend, Json-server-jwt (contiene los datos en db.json)
-
 //* 1) importar axios
 import axios from "axios";
 
