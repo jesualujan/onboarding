@@ -18,7 +18,7 @@ export default defineConfig({
     extensions: [".js", ".jsx", ".ts", ".tsx", "json"], // resuelva extensiones automáticamente
   },
   server: {
-    port: 3000, // cambiar el puerto si quieres ( por defecto es 5173)
+    port: 5000, // cambiar el puerto si quieres ( por defecto es 5173)
     open: true, // abrir el navegador automáticamente al iniciar el servidor
     strictPort: true, // fallará si el puerto está ocupado (evita que vite elija otro automaticamente))
   },
