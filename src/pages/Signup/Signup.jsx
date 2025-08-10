@@ -1,5 +1,33 @@
 import reactLogo from "@/assets/react.svg";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { registerUserService } from "@/service/userService";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    console.log("datos a enviar: ", data); //hacemos debug (ver datos en consola)
+    try {
+      const response = await registerUserService(data);
+      if (response.status === 201) {
+        // le damos feedback al usuario
+        toast.success("🎉 Usuario registrado exitosamente");
+        navigate("/login");
+      } else {
+        toast.error("❌ Error al registrar usuario");
+      }
+    } catch (error) {
+      console.log("Ocurrio un error en signup:", error); // para hacer debug
+      toast.error(error.message || "Error al registrar usuario"); // feedback al usuario
+    }
+  };
+
   return (
     <div className="max-w-md mx-auto mt-16 p-10 bg-white rounded-xl shadow-xl border border-gray-200">
       <h2 className="text-4xl font-bold mb-8 text-center text-gray-800">
@@ -12,7 +40,7 @@ const Signup = () => {
           Crear Cuenta
         </span>
       </h2>
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid gap-6">
           <div>
             <label
@@ -26,7 +54,15 @@ const Signup = () => {
               type="text"
               placeholder="Nombre"
               className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition ease-in-out duration-200"
+              {...register("first_name", {
+                required: "El nombre es obligatorio",
+              })}
             />
+            {errors.first_name && (
+              <p className="text-sm text-red-500">
+                {errors.first_name.message}{" "}
+              </p>
+            )}
           </div>
           <div>
             <label
@@ -40,7 +76,13 @@ const Signup = () => {
               type="text"
               placeholder="Apellido"
               className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition ease-in-out duration-200"
+              {...register("last_name", {
+                required: "El apellido es obligatorio",
+              })}
             />
+            {errors.last_name && (
+              <p className="text-sm text-red-500">{errors.last_name.message}</p>
+            )}
           </div>
         </div>
 
@@ -53,16 +95,23 @@ const Signup = () => {
           </label>
           <select
             id="gender"
-            className="block w-full rounded-md border border-gray-300 bg-white
+            {...register("gender", {
+              required: "Selecciona un género",
+            })}
+            className={`block w-full rounded-md border border-gray-300 bg-white
        px-3 py-2 shadow-sm 
        focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+       ${errors.gender ? "border-red-500" : ""}
        transition ease-in-out duration-150
-       "
+       `}
           >
             <option value="">Choose...</option>
             <option value="M">Male</option>
             <option value="F">Female</option>
           </select>
+          {errors.gender && (
+            <p className="text-sm text-red-500">{errors.gender.message}</p>
+          )}
         </div>
 
         <div>
@@ -77,8 +126,14 @@ const Signup = () => {
             type="email"
             placeholder="Correo electrónico"
             className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition ease-in-out duration-200"
+            {...register("email", {
+              required: "El correo electrónico es obligatorio",
+            })}
           />
         </div>
+        {errors.email && (
+          <p className="text-sm text-red-500">{errors.email.message}</p>
+        )}
 
         <div>
           <label
@@ -92,9 +147,14 @@ const Signup = () => {
             type="password"
             placeholder="Contraseña"
             className="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none transition ease-in-out duration-200"
+            {...register("password", {
+              required: "La contraseña es obligatoria",
+            })}
           />
         </div>
-
+        {errors.password && (
+          <p className="text-sm text-red-500">{errors.password.message}</p>
+        )}
         <button
           type="submit"
           className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-200"
