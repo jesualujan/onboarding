@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { loginUserService } from "@/service/userService";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "@/hook/useAuthContext";
 const Login = () => {
   const {
     register,
@@ -10,15 +11,17 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const { login } = useAuthContext();
 
   const onSubmit = async (data) => {
     console.log("datos a enviar: ", data); //hacemos debug (ver datos en consola)
     try {
       const response = await loginUserService(data);
       if (response.status === 200) {
+        login(response.data.token); // utilizar el login del contexto y decodificar el token en el navegador
         // le damos feedback al usuario
-        navigate("/");
         toast.success("🎉 Usuario autenticado exitosamente");
+        navigate("/");
       } else {
         //si no es status 200, muestra un mensaje de error
         toast.error("❌ Error al iniciar sesión, intenta de nuevo");
