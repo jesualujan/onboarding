@@ -59,7 +59,7 @@ const Signup = () => {
               })}
             />
             {errors.first_name && (
-              <p className="text-sm text-red-500">
+              <p className="text-sm text-red-600">
                 {errors.first_name.message}{" "}
               </p>
             )}
@@ -81,7 +81,7 @@ const Signup = () => {
               })}
             />
             {errors.last_name && (
-              <p className="text-sm text-red-500">{errors.last_name.message}</p>
+              <p className="text-sm text-red-600">{errors.last_name.message}</p>
             )}
           </div>
         </div>
@@ -110,7 +110,7 @@ const Signup = () => {
             <option value="F">Female</option>
           </select>
           {errors.gender && (
-            <p className="text-sm text-red-500">{errors.gender.message}</p>
+            <p className="text-sm text-red-600">{errors.gender.message}</p>
           )}
         </div>
 
@@ -132,7 +132,7 @@ const Signup = () => {
           />
         </div>
         {errors.email && (
-          <p className="text-sm text-red-500">{errors.email.message}</p>
+          <p className="text-sm text-red-600">{errors.email.message}</p>
         )}
 
         <div>
@@ -153,7 +153,7 @@ const Signup = () => {
           />
         </div>
         {errors.password && (
-          <p className="text-sm text-red-500">{errors.password.message}</p>
+          <p className="text-sm text-red-600">{errors.password.message}</p>
         )}
         <button
           type="submit"
