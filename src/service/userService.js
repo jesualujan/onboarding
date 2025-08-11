@@ -6,17 +6,27 @@
 import axiosInstance from "./axiosConfig";
 
 // ocupo mandar información
-// registrar un usuario (signup)
 // usamos javascript -> asincronimos (async - await)
+// 🟢 Registrar nuevo usuario (signup)
 const registerUserService = async (data) => {
   const response = await axiosInstance.post("/register", data);
   return response; // retornamos toda la respuesta para manejar status
 };
 
-// autenticar un usuario (login)
+// 🟡 Autenticación de usuario (login)
 const loginUserService = async (data) => {
   const response = await axiosInstance.post("/login", data);
   return response; // retornamos la respuesta para manejar status
 };
 
-export { registerUserService, loginUserService };
+// 🔵 Obtener información del usuario autenticado
+const getMeUserService = async () => {
+    const {data} = await axiosInstance.get("/users/me")
+    return data;
+}
+
+export {
+    registerUserService,
+    loginUserService,
+    getMeUserService
+}
